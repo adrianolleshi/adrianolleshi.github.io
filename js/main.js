@@ -1,8 +1,5 @@
 /*
-* Template Name: BreezyCV - Resume / CV / vCard / Portfolio Template
-* Author: LMPixels
-* Author URL: http://themeforest.net/user/lmpixels
-* Version: 1.5.0
+*  adrianolleshi - Resume / CV / vCard / Portfolio Template
 */
 
 (function($) {
