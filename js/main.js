@@ -62,7 +62,7 @@
     // /Custom scroll
 
     // Contact form validator
-    $(function () {
+      $(function () {
 
         $('#contact_form').validator();
 
@@ -90,7 +90,7 @@
             }
         });
     });
-    // /Contact form validator
+       // /Contact form validator
 
     //On Window load & Resize
     $(window)
