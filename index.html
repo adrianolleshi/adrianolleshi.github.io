@@ -7,7 +7,7 @@
   <title>Adriano Lleshi - Personal website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="description" content="Adriano Lleshi - Personal website" />
-  <meta name="keywords" content="cv, resume, Adriano Lleshi, portfolio, personal website" />
+  <meta name="keywords" content="cv, resume, Adriano Lleshi, portfolio, personal website, cybersecurity" />
   <meta name="author" content="Adriano Lleshi" />
   <link rel="shortcut icon" href="./favicon.png">
 
@@ -18,6 +18,128 @@
   <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
   <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
   <link rel="stylesheet" href="css/main.css" type="text/css">
+
+  <style>
+    /* Portfolio Blog Cards */
+    .portfolio-blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+    .portfolio-card {
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .portfolio-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .portfolio-card-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+    .portfolio-card-body {
+      padding: 14px 16px;
+    }
+    .portfolio-card-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #f5a623;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .portfolio-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .portfolio-card-url {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    /* Fix owl-carousel glitch */
+    .testimonials.owl-carousel { min-height: 1px; }
+    .owl-carousel .owl-wrapper-outer { overflow: hidden; }
+    /* Hide perfectScrollbar empty rail/track on all pages */
+    .ps__scrollbar-y-rail,
+    .ps__scrollbar-x-rail,
+    .ps > .ps__scrollbar-y-rail,
+    .ps > .ps__scrollbar-x-rail { display: none !important; opacity: 0 !important; }
+    .animated-section.ps { overflow: auto !important; }
+    /* Certificate clickable */
+    .certificate-item { cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; border-radius:8px; }
+    .certificate-item:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.4); }
+    .certi-logo img { transition:opacity 0.2s; }
+    .certificate-item:hover .certi-logo img { opacity:0.85; }
+
+    /* Cert Lightbox */
+    #cert-lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.95);
+      z-index: 999999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #cert-lightbox.open { display: flex !important; }
+    #cert-lightbox .lb-inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 860px;
+      width: 100%;
+    }
+    #cert-lightbox img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 6px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      object-fit: contain;
+      background: #fff;
+      display: block;
+    }
+    #cert-lightbox .cert-lb-close {
+      position: absolute;
+      top: -18px; right: -18px;
+      width: 36px; height: 36px;
+      background: #5050f5;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 22px; font-weight: 700;
+      cursor: pointer; z-index: 2;
+      line-height: 1;
+    }
+    #cert-lightbox .cert-lb-title {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 14px;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+  </style>
 </head>
 
 <body oncontextmenu="return false;">
@@ -25,6 +147,16 @@
   <div class="lm-animated-bg" style="background-image: url(img/background.png);"></div>
   <div class="lm-animated-bg" style="background-image: url(img/main_bg.png);"></div>
   <!-- /Animated Background -->
+
+  <!-- Cert Lightbox -->
+  <div id="cert-lightbox" onclick="closeCertLightbox()">
+    <div class="lb-inner" onclick="event.stopPropagation()">
+      <div class="cert-lb-close" onclick="closeCertLightbox()">&#215;</div>
+      <img id="cert-lightbox-img" src="" alt="">
+      <div class="cert-lb-title" id="cert-lightbox-title"></div>
+    </div>
+  </div>
+  <!-- /Cert Lightbox -->
 
   <!-- Loading animation -->
   <div class="preloader">
@@ -45,8 +177,7 @@
           </div>
           <div class="header-titles">
             <h2>Adriano Lleshi</h2>
-            <h4>Cyber Security analyst</h4>
-			
+            <h4>Cybersecurity Professional</h4>
           </div>
         </div>
 
@@ -69,18 +200,12 @@
               <span class="link-text">Resume</span>
             </a>
           </li>
-         <li>
+          <li>
             <a href="#portfolio" class="nav-anim">
               <span class="menu-icon lnr lnr-briefcase"></span>
               <span class="link-text">Portfolio</span>
             </a>
-          </li> 
-          <!-- <li>
-            <a href="#blog" class="nav-anim">
-              <span class="menu-icon lnr lnr-book"></span>
-              <span class="link-text">Blog</span>
-            </a>
-          </li> -->
+          </li>
           <li>
             <a href="#contact" class="nav-anim">
               <span class="menu-icon lnr lnr-envelope"></span>
@@ -91,19 +216,18 @@
 
         <div class="social-links">
           <ul>
-            <li><a href="https://github.com/Adrianolleshi/" target="_blank"><i class="fab fa-github"></i></a>
-            </li>
-            <li><a href="https://linkedin.com/in/Adrianolleshi/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <li><a href="https://github.com/Adrianolleshi/" target="_blank"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/in/Adrianolleshi/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+          </ul>
         </div>
 
         <div class="header-buttons">
-          <a href="./documents/Adriano Lleshi Resume.pdf" target="_blank" class="btn btn-primary ">Open full CV</a><br>
-          <a href="./documents/Adrianolleshi coverletter.pdf" target="_blank" class="btn btn-primary ">Open Cover Letter</a>
+          <a href="./documents/Adriano Lleshi Resume.pdf" target="_blank" class="btn btn-primary">Open full CV</a><br>
+          <a href="./documents/Adrianolleshi coverletter.pdf" target="_blank" class="btn btn-primary">Open Cover Letter</a>
         </div>
 
         <div class="copyrights">
-          <p>© 2025 All rights reserved. By Adriano
-          <p>
+          <p>© 2025 All rights reserved. By Adriano</p>
         </div>
       </header>
 
@@ -124,10 +248,10 @@
 
       <div class="content-area">
         <div class="animated-sections">
+
           <!-- Home Subpage -->
           <section data-id="home" class="animated-section start-page">
             <div class="section-content vcentered">
-
               <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                   <div class="title-block">
@@ -135,17 +259,14 @@
                     <div class="owl-carousel text-rotation">
                       <div class="item">
                         <div class="sp-subtitle">
-                          <div class="item">
-                            <div class="sp-subtitle">
-                              <p>“At the end of the day, the goals are simple: safety and security.”</p>
-                            </div>
-                          </div>
+                          <p>"At the end of the day, the goals are simple: safety and security."</p>
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </div>
+              </div>
+            </div>
           </section>
           <!-- End of Home Subpage -->
 
@@ -159,14 +280,9 @@
               <!-- Personal Information -->
               <div class="row">
                 <div class="col-xs-12 col-sm-7">
-                  <p>Director of the Cyber Analysis Directorate with extensive experience in leading advanced cybersecurity
-			operations, including Threat Intelligence, Blue Team, and Purple Team activities through adversary
-			simulation. Skilled in dark web investigations to protect national critical infrastructure and experienced
-			in organizing cyber drills to enhance response capabilities. Developed "Train the Trainer" programs for
-			Albania's CII operators and established the National Cyber Simulation Laboratory for IT and OT
-			environments. Winner of first place among 108 countries in the Global Cyber Drill at GISEC 2024,
-			demonstrating exceptional expertise in cyber defense and incident response.
-		    </p>
+                  <p>Cybersecurity professional with extensive expertise in incident response, malware analysis, and digital forensics. Director of the Cyber Analysis Directorate, leading Threat Intelligence, Purple Team adversary simulation, and dark web investigations to protect Albania's national critical infrastructure. Certified ISO 27001 Lead Auditor, Ethical Hacker (Master), and Threat Hunter, with hands-on experience in SIEM, OSINT, and ICS security.</p>
+                  <p style="margin-top:10px;"><strong>&#127942; 1st Place – Global Cyber Drill GISEC 2024</strong> (108 countries) &nbsp;|&nbsp; <strong>&#127942; 1st Place – Western Balkans Live-Fire Cybersecurity Exercise 2025</strong></p>
+                  <p style="margin-top:6px;">&#128737; <strong>Technical Lead</strong> – NATO Cyber Coalition &amp; Locked Shields 2024–2025–2026</p>
                 </div>
 
                 <div class="col-xs-12 col-sm-5">
@@ -176,22 +292,18 @@
                         <span class="title">Address: </span>
                         <span class="value">Papa Gjon Pali II, Tirana, Albania</span>
                       </li>
-
                       <li>
                         <span class="title">Email: </span>
                         <span class="value">adrianolleshi1@gmail.com</span>
                       </li>
-
                       <li>
                         <span class="title">Phone: </span>
-                        <span class="value">+355 69 6838 553 </span>
+                        <span class="value">+355 69 6838 553</span>
                       </li>
-
                       <li>
                         <span class="title">Birthday: </span>
                         <span class="value">06/08/1996</span>
                       </li>
-
                       <li>
                         <span class="title">Nationality: </span>
                         <span class="value">Albanian</span>
@@ -204,7 +316,7 @@
 
               <div class="white-space-50"></div>
 
-              <!-- Services -->
+              <!-- What I Do -->
               <div class="row">
                 <div class="col-xs-12 col-sm-12">
                   <div class="block-title">
@@ -213,49 +325,74 @@
                 </div>
               </div>
 
-          <div class="row">
-  <div class="col-xs-12 col-sm-6">
-    <div class="col-inner">
-      <div class="info-list-w-icon">
-        <div class="info-block-w-icon">
-          <div class="ci-icon">
-            <i class="lnr lnr-laptop"></i>
-          </div>
-          <div class="ci-text">
-            <h4>Cyber Operations</h4>
-            • Investigated national-level cyber incidents, identifying sources, methods, and preventing future attacks.<br>
-            • Led Purple Team exercises with adversary simulation to test and improve defense capabilities.<br>
-            • Conducted malware analysis and digital forensics to track attackers and strengthen security.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-inner">
+                    <div class="info-list-w-icon">
+                      <div class="info-block-w-icon">
+                        <div class="ci-icon">
+                          <i class="lnr lnr-bug"></i>
+                        </div>
+                        <div class="ci-text">
+                          <h4>Incident Response &amp; Digital Forensics</h4>
+                          Led national-level cyber incident investigations — identifying attack sources, vectors, and TTPs. Conducted in-depth malware analysis and digital forensics to track threat actors and prevent future attacks on Critical Infrastructure.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-  <div class="col-xs-12 col-sm-6">
-    <div class="col-inner">
-      <div class="info-list-w-icon">
-        <div class="info-block-w-icon">
-          <div class="ci-icon">
-            <i class="lnr lnr-lock"></i>
-          </div>
-          <div class="ci-text">
-            <h4>Cyber Security</h4>
-            Incident Response Coordination: Led the incident response team in identifying, investigating and mitigating cybersecurity incidents targeting national Critical Infrastructures (CII) in Albania. Ensured incidents were managed in minimizing impact and improving response effectiveness.<br><br>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-inner">
+                    <div class="info-list-w-icon">
+                      <div class="info-block-w-icon">
+                        <div class="ci-icon">
+                          <i class="lnr lnr-shield"></i>
+                        </div>
+                        <div class="ci-text">
+                          <h4>Threat Intelligence &amp; Purple Team</h4>
+                          Led advanced Threat Intelligence operations and Purple Team adversary simulation exercises, analyzing Iranian and Russian state-sponsored threat actors and their TTPs to strengthen national cyber defense capabilities.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            Malware Analysis and Digital Forensics: Defence in-depth technical investigations involving malware analysis and digital forensics to identify attack vectors TTP and track threat actors.<br><br>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-inner">
+                    <div class="info-list-w-icon">
+                      <div class="info-block-w-icon">
+                        <div class="ci-icon">
+                          <i class="lnr lnr-earth"></i>
+                        </div>
+                        <div class="ci-text">
+                          <h4>Cyber Drills &amp; NATO Exercises</h4>
+                          Coordinated national and international cyber exercises as <strong>Technical Lead for NATO Cyber Coalition &amp; Locked Shields 2024–2025–2026.</strong><br><br>
+                          &#127942; 1st Place – GISEC 2024 Global Cyber Drill (108 countries)<br>
+                          &#127942; 1st Place – Western Balkans Live-Fire Exercise 2025
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            Threat Intelligence & Purple Team: Focused on advanced Threat Intelligence operations, leading both Blue Team and Purple Team activities through adversary simulation and emulation. Cyber Threat Analysis on investigation the Iranian and Russian State Sponsored attackers in TTP that they use.<br><br>
-
-            Open-Source Tool Integration: Implementing open-source tools to establish Albania's National Cyber Simulation Laboratory, simulating IT and OT environments for Live Fire Scenarios, cyberdrill exercises. (Elastic Search, Security Onion, OpenSense, Suricata, MISP, OpenCTI etc).<br><br>
-
-            Cyber Drill & International Recognition: Coordinated complex national and international cyber drills, enhancing response capabilities through real-world simulations. Participation in NATO cyber-Exercises, Cyber Coalition and NATO Lockshield 2024, 2025.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-inner">
+                    <div class="info-list-w-icon">
+                      <div class="info-block-w-icon">
+                        <div class="ci-icon">
+                          <i class="lnr lnr-graduation-hat"></i>
+                        </div>
+                        <div class="ci-text">
+                          <h4>Training &amp; Cyber Simulation Lab</h4>
+                          Developed "Train the Trainer" programs for Western Balkans CII operators. Established Albania's National Cyber Simulation Laboratory for IT &amp; OT environments using ELK, Security Onion, Wazuh, MISP, OpenCTI, and Microsoft Sentinel.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of What I Do -->
 
               <div class="white-space-30"></div>
 
@@ -271,20 +408,32 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12">
                   <div class="testimonials owl-carousel">
+
+                    <div class="testimonial">
+                      <div class="img">
+                        <img src="img/Tafa-Igli.jpg" alt="Igli Tafa">
+                      </div>
+                      <div class="text">
+                        <p>Adriano has demonstrated outstanding leadership and technical excellence in the field of cybersecurity. As his director, I have witnessed firsthand his commitment to protecting national critical infrastructure and his ability to lead complex cyber operations under pressure. He is a true asset to Albania's cybersecurity ecosystem.</p>
+                      </div>
+                      <div class="author-info">
+                        <h4 class="author">Dr. Prof. Asoc. Igli Tafa</h4>
+                        <h5 class="company">Director General, National Authority for Cyber Security</h5>
+                        <div class="icon">
+                          <i class="fas fa-quote-right"></i>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="testimonial">
                       <div class="img">
                         <img src="img/main_photo.jpg" alt="Ardi Benusi">
                       </div>
                       <div class="text">
-                        <p>Mr. Adriano was a very tireless student. 
-			He was eager for knowledge and wanted to challenge himself in every direction 
-			in school in terms of information security. He defended his dissertation 
-			under my supervision and finally released a very valuable product 
-			"Secure data exchange in mobile cloud computing". </p>
+                        <p>Mr. Adriano was a very tireless student. He was eager for knowledge and wanted to challenge himself in every direction in school in terms of information security. He defended his dissertation under my supervision and finally released a very valuable product "Secure data exchange in mobile cloud computing".</p>
                       </div>
-
                       <div class="author-info">
-                        <h4 class="author">Dr.Ardi Benusi</h4>
+                        <h4 class="author">Dr. Ardi Benusi</h4>
                         <h5 class="company">Lecturer at University of Tirana</h5>
                         <div class="icon">
                           <i class="fas fa-quote-right"></i>
@@ -294,14 +443,11 @@
 
                     <div class="testimonial">
                       <div class="img">
-                        <img src="img/test1.png" alt="Vilma Tomco">
+                        <img src="img/vilma.jpg" alt="Vilma Tomco">
                       </div>
                       <div class="text">
-                        <p>Mr. Adriano quickly familiarized himself with various areas of responsibility. He always
-                          completed the tasks assigned to him to our complete satisfaction. His behavior towards
-                          superiors and colleagues was always excellent.<br><br><br></p>
+                        <p>Mr. Adriano quickly familiarized himself with various areas of responsibility. He always completed the tasks assigned to him to our complete satisfaction. His behavior towards superiors and colleagues was always excellent.</p>
                       </div>
-
                       <div class="author-info">
                         <h4 class="author">Dr. Vilma Tomco</h4>
                         <h5 class="company">General Director NAECCS Albania</h5>
@@ -310,12 +456,11 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
               <!-- End of Testimonials -->
-
-              <!-- <div class="white-space-50"></div> -->
 
             </div>
           </section>
@@ -337,8 +482,8 @@
                   <div class="timeline timeline-second-style clearfix">
                     <div class="timeline-item clearfix">
                       <div class="left-part">
-                        <h5 class="item-period">22/10/2015–19/07/2018</h5>
-                        <span class="item-company">Faculty of natural Sciences, University of Tirana - Tirana (Albania)</span>
+                        <h5 class="item-period">2015 – 2018</h5>
+                        <span class="item-company">University of Tirana, Albania</span>
                       </div>
                       <div class="divider"></div>
                       <div class="right-part">
@@ -348,12 +493,12 @@
 
                     <div class="timeline-item clearfix">
                       <div class="left-part">
-                        <h5 class="item-period">15/10/2018–17/07/2020</h5>
-                        <span class="item-company">Faculty of natural Sciences, University of Tirana - Tirana (Albania)</span>
+                        <h5 class="item-period">2018 – 2020</h5>
+                        <span class="item-company">University of Tirana, Albania</span>
                       </div>
                       <div class="divider"></div>
                       <div class="right-part">
-                        <h4 class="item-title">Master degree in Information and Communication Technology (ICT)</h4>
+                        <h4 class="item-title">Master's Degree in Information and Communication Technology (ICT)</h4>
                       </div>
                     </div>
                   </div>
@@ -363,48 +508,104 @@
                   <div class="block-title">
                     <h3>Work Experience</h3>
                   </div>
-				  
-				  
-				     <div class="timeline timeline-second-style clearfix">
+
+                  <div class="timeline timeline-second-style clearfix">
+
                     <div class="timeline-item clearfix">
                       <div class="left-part">
-                        <h5 class="item-period">04.07.2024 – P</h5>
-                        <span class="item-company"> National Authority for Cyber Security
-						</span>
+                        <h5 class="item-period">Jun 2024 – Present</h5>
+                        <span class="item-company">Axiom Breach</span>
                       </div>
                       <div class="divider"></div>
                       <div class="right-part">
-                        <h4 class="item-title">Director – Directorate of Cyber Security Analysis</h4>
-                        <p>
-						• Led cybersecurity incident management for national critical infrastructures,
-						improving response time by 30%.
-						• Conducted advanced malware analysis and digital forensicsto strengthen security.
-						• Directed Threat Intelligence operations and coordinated NATO cyber exercises.
-						• Integrated open-source tools into Albania’s Cyber Simulation Lab, enhancing
-						defense training.
-_						1st Place – Global Cyber Drill at GISEC 2024
-						(https://www.facebook.com/reel/459527236643319)
-						1st Place – Western Balkans Cyber Drill
-						(https://aksk.gov.al/en/albania-is-the-cybersecurity-champion-in-thebalkans-for-the-second-consecutive-year/)
-						</p>
+                        <h4 class="item-title">Cyber Security Consultant</h4>
+                        <p>Responsible for adversary simulation, penetration testing, advanced TTPs, threat intelligence, threat hunting, and incident response to assess and enhance organizational security posture.</p>
                       </div>
                     </div>
-				
-                 
 
-         
+                    <div class="timeline-item clearfix">
+                      <div class="left-part">
+                        <h5 class="item-period">Jul 2024 – Present</h5>
+                        <span class="item-company">National Authority for Cyber Security, Albania</span>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="right-part">
+                        <h4 class="item-title">Head of Cyber Security Analysis / Director</h4>
+                        <p>• Conducted advanced malware analysis and forensics to strengthen national security.<br>
+                        • Directed Threat Intelligence operations and coordinated NATO cyber exercises.<br>
+                        • Implemented the National Security Operations Center (NSOC) and CSIRT Albania, integrating ELK, Security Onion, Wazuh, MISP, Microsoft Azure and Sentinel.<br>
+                        • Trainer of the trainers for all Western Balkans Critical Infrastructure Operators.<br>
+                        • &#127942; 1st Place – Global Cyber Drill GISEC 2024 &nbsp;|&nbsp; &#127942; 1st Place – Western Balkans Live-Fire Exercise 2025</p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item clearfix">
+                      <div class="left-part">
+                        <h5 class="item-period">Apr 2023 – Jul 2024</h5>
+                        <span class="item-company">National Authority for Cyber Security, Albania</span>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="right-part">
+                        <h4 class="item-title">Head of Malware Analysis &amp; Digital Forensics (Purple Team)</h4>
+                        <p>• Investigated national-level cyber incidents, identifying sources, methods, and preventing future attacks.<br>
+                        • Led Purple Team exercises with adversary simulation to test and improve defense capabilities.<br>
+                        • Conducted malware analysis and digital forensics to track attackers and strengthen security.</p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item clearfix">
+                      <div class="left-part">
+                        <h5 class="item-period">Sep 2023 – Jun 2024</h5>
+                        <span class="item-company">Protik | CyberTiranaAL3 Program</span>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="right-part">
+                        <h4 class="item-title">Cybersecurity Trainer</h4>
+                        <p>Delivered hands-on trainings, CTFs, and cyber drills in Red Team vs. Blue Team scenarios covering Linux for Hackers, OSINT, Social Engineering, SIEM/IDS/IPS/EDR, Advanced Pentesting, Web Application Pentesting, and practical labs on TryHackMe.</p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item clearfix">
+                      <div class="left-part">
+                        <h5 class="item-period">Jul 2019 – Apr 2023</h5>
+                        <span class="item-company">National Authority for Electronic Certification and Cyber Security</span>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="right-part">
+                        <h4 class="item-title">Incident Response Specialist – CSIRT Albania</h4>
+                        <p>• Monitored, analyzed, and responded to cyber threats and incidents.<br>
+                        • Conducted audits in CII ensuring compliance with ISO/IEC 27001.<br>
+                        • Provided expertise to CII in mitigating vulnerabilities and defending against emerging threats.</p>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
-     <!-- Skills -->
+                <!-- Skills -->
                 <div class="col-xs-12 col-sm-5">
-                  <!-- Cyber Security Skills -->
                   <div class="block-title">
                     <h3>Cyber Security <span>Skills</span></h3>
                   </div>
                   <div class="skills-info skills-second-style">
                     <div class="skill clearfix">
                       <h4>Incident Response</h4>
+                      <div class="skill-value">90%</div>
+                    </div>
+                    <div class="skill-container skill-8">
+                      <div class="skill-percentage"></div>
+                    </div>
+
+                    <div class="skill clearfix">
+                      <h4>Threat Intelligence &amp; OSINT</h4>
+                      <div class="skill-value">90%</div>
+                    </div>
+                    <div class="skill-container skill-8">
+                      <div class="skill-percentage"></div>
+                    </div>
+
+                    <div class="skill clearfix">
+                      <h4>Malware Analysis &amp; Digital Forensics</h4>
                       <div class="skill-value">85%</div>
                     </div>
                     <div class="skill-container skill-7">
@@ -412,140 +613,48 @@ _						1st Place – Global Cyber Drill at GISEC 2024
                     </div>
 
                     <div class="skill clearfix">
-                      <h4>Cloud security</h4>
-                      <div class="skill-value">90%</div>
+                      <h4>Purple Team / Adversary Simulation</h4>
+                      <div class="skill-value">75%</div>
                     </div>
-                    <div class="skill-container skill-8">
+                    <div class="skill-container skill-5">
                       <div class="skill-percentage"></div>
                     </div>
 
                     <div class="skill clearfix">
-                      <h4>Ethical Hacking</h4>
-                      <div class="skill-value">70%</div>
+                      <h4>Cloud Security (Azure / Sentinel)</h4>
+                      <div class="skill-value">75%</div>
                     </div>
-                    <div class="skill-container skill-4">
+                    <div class="skill-container skill-5">
                       <div class="skill-percentage"></div>
                     </div>
 
                     <div class="skill clearfix">
-                      <h4>Cybersecurity awareness</h4>
-                      <div class="skill-value">70%</div>
-                    </div>
-                    <div class="skill-container skill-4">
-                      <div class="skill-percentage"></div>
-                    </div>
-					
-                    <div class="skill clearfix">
-                      <h4>Penetration Testing </h4>
-                      <div class="skill-value">70%</div>
-                    </div>
-                    <div class="skill-container skill-4">
-                      <div class="skill-percentage"></div>
-                    </div>
-                  </div>
-                  <!-- End of Cyber Security Skills -->
-
-                  <div class="white-space-10"></div>
-
-                  <!-- Software Engineering -->
-                  <div class="block-title">
-                    <h3>Web <span>Developement</span></h3>
-                  </div>
-
-                  <div class="skills-info skills-second-style">
-                    <div class="skill clearfix">
-                      <h4>Wordpress</h4>
-                      <div class="skill-value">90%</div>
-                    </div>
-                    <div class="skill-container skill-8">
-                      <div class="skill-percentage"></div>
-                    </div>
-
-                    <div class="skill clearfix">
-                      <h4>HTML/CSS</h4>
-                      <div class="skill-value">70%</div>
-                    </div>
-                    <div class="skill-container skill-4">
-                      <div class="skill-percentage"></div>
-                    </div>
-
-                    <div class="skill clearfix">
-                      <h4>Javascript</h4>
+                      <h4>ICS / OT Security</h4>
                       <div class="skill-value">60%</div>
                     </div>
-                    <div class="skill-container skill-2">
+                    <div class="skill-container skill-3">
                       <div class="skill-percentage"></div>
                     </div>
                   </div>
-                  <!-- End of Web Developement -->
 
                   <div class="white-space-10"></div>
 
-                  <!-- Soft Skills -->
                   <div class="block-title">
                     <h3>Soft <span>Skills</span></h3>
                   </div>
-
-
                   <ul class="knowledges">
-                    <li>Communication</li>
-                    <li>Quick learning</li>
-                    <li>Problem solving</li>
-                    <li>Logical thinking</li>
-                    <li>Critical thinking</li>
                     <li>Leadership</li>
-                    <li>Adaptability</li>
+                    <li>Critical Thinking</li>
+                    <li>Problem Solving</li>
+                    <li>Communication</li>
+                    <li>Quick Learning</li>
                     <li>Teamwork</li>
-                    <li>Work ethic</li>
+                    <li>Adaptability</li>
+                    <li>Work Ethic</li>
                   </ul>
-                  <!-- End of Soft Skills -->
                 </div>
                 <!-- End of Skills -->
               </div>
-			  
-			  
-			    
-				
-				  
-				  
-				   <div class="timeline timeline-second-style clearfix">
-                    <div class="timeline-item clearfix">
-                      <div class="left-part">
-                        <h5 class="item-period">Apr 2023 – 04.07.2024</h5>
-                        <span class="item-company">Cyber Security Incident Response Team at National Authority for Cyber</span>
-                      </div>
-                      <div class="divider"></div>
-                      <div class="right-part">
-                        <h4 class="item-title">Head of Malware analysis and Digital Forensics (Purple Team) | C
-						Security </h4>
-                        <p>• Investigated national-level cyber incidents, identifying sources, methods, and
-							preventing future attacks.
-							• Led Purple Team exercises with adversary simulation to test and improve
-							defense capabilities.
-							• Conducted malware analysis and digital forensics to track attackers and
-							strengthen security
-						</p>
-                      </div>
-                    </div>
-					
-					 <div class="timeline timeline-second-style clearfix">
-                    <div class="timeline-item clearfix">
-                      <div class="left-part">
-                        <h5 class="item-period">02/07/2019 – April 2023</h5>
-                        <span class="item-company">National Authority for
-						Electronic Certification and Cyber Security</span>
-                      </div>
-                      <div class="divider"></div>
-                      <div class="right-part">
-                        <h4 class="item-title">Expert | Cyber Security Incident Response Team (CSIRT) </h4>
-                        <p><b>Incident Response & Vulnerability Management: </b>
-						• Monitored, analyzed, and responded to cyber threats and incidents.
-						• Conducted audits in CII- ensuring compliance with ISO/IEC 27001.
-						• Provided expertise to CII in mitigating vulnerabilities and defending against
-						emerging threats.
-                      </div>
-                    </div>
-
 
               <div class="white-space-50"></div>
 
@@ -553,250 +662,164 @@ _						1st Place – Global Cyber Drill at GISEC 2024
               <div class="row">
                 <div class="col-xs-12 col-sm-12">
                   <div class="block-title">
-                    <h3>Certificates & Awards</h3>
+                    <h3>Certificates &amp; Awards</h3>
                   </div>
                 </div>
               </div>
 
               <div class="row">
+
                 <div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/ceh_master.jpg','Certified Ethical Hacker Master')">
                     <div class="certi-logo">
-                      <img src="img/chfi.png" alt="">
-		      <img src="img/chfi exam.png" alt="">
-		      <img src="img/1738572522089.jfif" alt="">
+                      <img src="img/ceh_master.jpg" alt="CEH Master">
                     </div>
                     <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>Computer Hacking Forensic Investigator (CHFI)</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>Digital Forensics in Hacking techniques of forensics investigator</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Jan 2025</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>EC-Coouncil</span>
-                      </div>
+                      <div class="certi-title"><h4>Certified Ethical Hacker (Master) – CEH Master</h4></div>
+                      <div class="certi-id"><span>Advanced Ethical Hacking Certification</span></div>
+                      <div class="certi-company"><span>EC-Council</span></div>
                     </div>
                   </div>
                 </div>
-				
 
                 <div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/cciso.jpg','Certified Chief Information Security Officer (CCISO)')">
                     <div class="certi-logo">
-                      <img src="img/877b19e7-c9cb-47c7-a5c0-0c65e5be3a5e.png" alt="University of Tirana">
+                      <img src="img/cciso.jpg" alt="CCISO">
                     </div>
-
                     <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>Threat Hunting Essentials</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>Threat Hunting in CrowdStrike EDR</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Dec 2024</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>Offensive Security</span>
-                      </div>
+                      <div class="certi-title"><h4>Certified Chief Information Security Officer (CCISO)</h4></div>
+                      <div class="certi-id"><span>Executive-level Cybersecurity Leadership</span></div>
+                      <div class="certi-company"><span>EC-Council</span></div>
                     </div>
                   </div>
                 </div>
-					<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/osth.jpg','OffSec Threat Hunter (OSTH)')">
+                    <div class="certi-logo">
+                      <img src="img/osth.jpg" alt="OSTH">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>OffSec Threat Hunter (OSTH)</h4></div>
+                      <div class="certi-id"><span>Threat Hunting in CrowdStrike EDR</span></div>
+                      <div class="certi-date"><span>Apr 2025</span></div>
+                      <div class="certi-company"><span>Offensive Security</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/ctia.jpg','Certified Threat Intelligence Analyst v2 (CTIA)')">
+                    <div class="certi-logo">
+                      <img src="img/ctia.jpg" alt="CTIA">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>Certified Threat Intelligence Analyst v2 (CTIA)</h4></div>
+                      <div class="certi-id"><span>Threat Intelligence Framework &amp; Analysis</span></div>
+                      <div class="certi-date"><span>Mar 2025</span></div>
+                      <div class="certi-company"><span>EC-Council</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/ecih.jpg','EC-Council Certified Incident Handler (ECIH)')">
+                    <div class="certi-logo">
+                      <img src="img/ecih.jpg" alt="ECIH">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>EC-Council Certified Incident Handler (ECIH)</h4></div>
+                      <div class="certi-id"><span>Incident Handling &amp; Response</span></div>
+                      <div class="certi-date"><span>Mar 2025</span></div>
+                      <div class="certi-company"><span>EC-Council</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/chfi_cert.jpg','Computer Hacking Forensic Investigator (CHFI)')">
+                    <div class="certi-logo">
+                      <img src="img/chfi_cert.jpg" alt="CHFI">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>Computer Hacking Forensic Investigator (CHFI)</h4></div>
+                      <div class="certi-id"><span>Digital Forensics &amp; Hacking Investigation</span></div>
+                      <div class="certi-date"><span>Jan 2025</span></div>
+                      <div class="certi-company"><span>EC-Council</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/comptia_badge.png','CompTIA Security+ ce Certification')">
+                    <div class="certi-logo">
+                      <img src="img/comptia_badge.png" alt="CompTIA Security+">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>CompTIA Security+</h4></div>
+                      <div class="certi-id"><span>CompTIA CE Certification Security+</span></div>
+                      <div class="certi-date"><span>Feb 2024</span></div>
+                      <div class="certi-company"><span>CompTIA</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/pecb.png','ISO/IEC 27001 Lead Auditor – PECB')">
+                    <div class="certi-logo">
+                      <img src="img/pecb.png" alt="ISO 27001 Lead Auditor">
+                    </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>ISO/IEC 27001 Lead Auditor</h4></div>
+                      <div class="certi-id"><span>ISO 27001 Lead Auditor Certification</span></div>
+                      <div class="certi-date"><span>Feb 2024</span></div>
+                      <div class="certi-company"><span>PECB</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/industrial control system.png','ICS Cybersecurity Lab 301L – CISA')">
                     <div class="certi-logo">
                       <img src="img/industrial control system.png" alt="ICS">
-					  <img src="img/cisagov_logo.jfif" alt="ICS">
                     </div>
+                    <div class="certi-content">
+                      <div class="certi-title"><h4>Industrial Control System ICS Cybersecurity Lab 301L</h4></div>
+                      <div class="certi-id"><span>Certificate of Completion</span></div>
+                      <div class="certi-date"><span>Jul 2024</span></div>
+                      <div class="certi-company"><span>Cybersecurity and Infrastructure Security Agency (CISA)</span></div>
+                    </div>
+                  </div>
+                </div>
 
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/akcesk1.png','AKCESK Cyber Exercise 2021')">
+                    <div class="certi-logo">
+                      <img src="img/akcesk1.png" alt="AKCESK">
+                    </div>
                     <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>Industrial Control System ICS Cybersecurity Lab 301L</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>Certificate of Completion</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Jul 2024</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>Cybersecurity and Infrastructure Security Agency</span>
-                      </div>
+                      <div class="certi-title"><h4>AKCESK 2021 Cyber Exercise</h4></div>
+                      <div class="certi-id"><span>Certificate of Participation – powered by Cyber Ranges</span></div>
+                      <div class="certi-date"><span>June 2021</span></div>
                     </div>
                   </div>
                 </div>
-		<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
-                    <div class="certi-logo">
-		  	<img src="img/comptia.png" alt="">	
-			<img src="img/CompTIA_Security_2Bce.png" alt="">				
-                    </div>
-                    <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>CompTIA Security + </h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>CompTIA ce Certification Security +</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Feb 2024</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>CompTIA</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				
-				<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
-                    <div class="certi-logo">
-		  	<img src="img/00196.png" alt="">	
-                    </div>
-                    <div class="certi-content">
-                      <div class="certi-title">
-                        <h4> ISO/IEC 27001 Lead Auditor </h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>ISO 27001 Lead Auditor </span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Feb 2024</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>PECB</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				
-				
-						<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
-                    <div class="certi-logo">
-		  	<img src="img/da36d21b-19cb-4194-9b97-573d80ad152d.png" alt="">	
-                    </div>
-                    <div class="certi-content">
-                      <div class="certi-title">
-                        <h4> Digital Forensics Essentials (DFE)</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span> Digital Forensics Essentials (DFE) </span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Nov 2022</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>EC-Council</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				
-				
-							<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
-                    <div class="certi-logo">
-		  	<img src="img/d916feee-625f-41ba-89d6-66248ac531c5.png" alt="">	
-                    </div>
-                    <div class="certi-content">
-                      <div class="certi-title">
-                        <h4> Ethical Hacking Essentials (EHE)</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span> Ethical Hacking Essentials (EHE) </span>
-                      </div>
-                      <div class="certi-date">
-                        <span>Nov 2022</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>EC-Council</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				
-				
-				<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
-                    <div class="certi-logo">
-                      <img src="img/KEMINET.png" alt="">
-                    </div>
 
-                    <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>Professional training in “Hardware and Networking Introduction”</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>Certificate of Achievement</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>October 2020</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>Keminet.net</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				
-		<div class="col-xs-12 col-sm-6">
-                  <div class="certificate-item clearfix">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="certificate-item clearfix" onclick="openCertLightbox('img/cepol.png','CEPOL WB PaCT Course 2022')">
                     <div class="certi-logo">
-                       <img src="img/akcesk1.png" alt="">
-		       <img src="img/cyberranges.jpg" alt="">	
-		       <img src="img/silensec.png" alt="">						   
+                      <img src="img/cepol.png" alt="CEPOL">
                     </div>
-
                     <div class="certi-content">
-                      <div class="certi-title">
-                        <h4>AKCESK 2021 Cyber Exercise</h4>
-                      </div>
-                      <div class="certi-id">
-                        <span>Certificate of Participation. The cyber exercise was powered by Cyber Ranges</span>
-                      </div>
-                      <div class="certi-date">
-                        <span>25th June 2021</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>Linkedin Learning</span>
-                      </div>
+                      <div class="certi-title"><h4>CEPOL WB PaCT Course 30/2022</h4></div>
+                      <div class="certi-id"><span>Interagency &amp; International Cooperation on Cyber Attacks, Bucharest</span></div>
+                      <div class="certi-date"><span>July 2022</span></div>
+                      <div class="certi-company"><span>CEPOL / Europol / Council of Europe</span></div>
                     </div>
                   </div>
                 </div>
-				
-				
-				 <div class="col-xs-12 col-sm-6">
-                    <div class="certificate-item clearfix">
-                     <div class="certi-logo">
-			<img src="img/cepol.png" alt="">
-			<img src="img/Europol.png" alt="">
-			<img src="img/EuropeanUnion.png" alt="">		
-			<img src="img/councilofeurope.png" alt="">	
-                     </div>
-		       <div class="certi-content">
-                       <div class="certi-title">
-                        <h4>Successfully participated in CEPOL WB PaCT course 30/2022</h4>
-                     </div>
-                      <div class="certi-id">
-                        <span>4-8 July 2022, Bucharest, Romania. Interagency and international cooperation on Cyber - Attacks  </span>
-                      </div>
-                      <div class="certi-date">
-                        <span>July 2022</span>
-                      </div>
-                      <div class="certi-company">
-                        <span>CEPOL, Founded by the European Union, Europol, Council of Europe</span>
-                      </div>
-                     </div>
-                   </div>
-                 </div>
-		 
-		
-	
+
               </div>
               <!-- End of Certificates -->
             </div>
@@ -810,203 +833,453 @@ _						1st Place – Global Cyber Drill at GISEC 2024
                 <h2>Portfolio</h2>
               </div>
 
-              <div class="row">
-                <div class="col-xs-12 col-sm-12">
-                  <!-- Portfolio Content -->
-                  <div class="portfolio-content">
+              <style>
+                .ptabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+                .ptab-btn {
+                  padding:7px 20px; border-radius:20px;
+                  border:1px solid rgba(255,255,255,0.2);
+                  background:transparent; color:rgba(255,255,255,0.6);
+                  cursor:pointer; font-size:13px; transition:all 0.2s;
+                }
+                .ptab-btn.active, .ptab-btn:hover {
+                  background:#5050f5; border-color:#5050f5;
+                  color:#fff; font-weight:700;
+                }
+                .ptab-panel { display:none; }
+                .ptab-panel.active { display:block; }
+                .report-grid {
+                  display:grid;
+                  grid-template-columns:repeat(auto-fill,minmax(255px,1fr));
+                  gap:16px;
+                }
+                .rcard {
+                  border-radius:10px; background:rgba(255,255,255,0.05);
+                  border:1px solid rgba(255,255,255,0.1); padding:16px 18px;
+                  display:flex; flex-direction:column; gap:9px;
+                  transition:transform 0.25s, box-shadow 0.25s;
+                }
+                .rcard:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(0,0,0,0.4); }
+                .rcard-icon { font-size:26px; line-height:1; }
+                .rcard-tag {
+                  font-size:10px; text-transform:uppercase; letter-spacing:1.2px;
+                  color:#5050f5; font-weight:700;
+                }
+                .rcard-title { font-size:13.5px; color:#fff; font-weight:600; line-height:1.45; flex:1; }
+                .rcard-link {
+                  display:inline-block; margin-top:6px; padding:5px 14px;
+                  border:1px solid rgba(80,80,245,0.35); border-radius:20px;
+                  color:#5050f5; font-size:12px; text-decoration:none;
+                  transition:background 0.2s,color 0.2s; align-self:flex-start;
+                }
+                .rcard-link:hover { background:#5050f5; color:#fff; }
+              </style>
 
-                    <ul class="portfolio-filters">
-                      <li class="active">
-                        <a class="filter btn btn-sm btn-link" data-group="category_all">All</a>
-                      </li>
-                      <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_ecommerce">E-Commerce</a>
-                      </li>
-                      <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_automobile">Automobile</a>
-                      </li>
-                      <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_architecture">Architecture</a>
-                      </li>
-                      <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_branding">Branding</a>
-                      </li>
-					  <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_laboratory">Laboratory</a>
-                      </li>
-					   <li>
-                        <a class="filter btn btn-sm btn-link" data-group="category_organization">Organization</a>
-                      </li>
-					
-                    </ul>
+              <div class="ptabs">
+                <button class="ptab-btn active" onclick="showPTab(event,'pt-incidents')">&#128196; Incident Reports</button>
+                <button class="ptab-btn" onclick="showPTab(event,'pt-prevented')">&#128737; Prevented Incidents</button>
+                <button class="ptab-btn" onclick="showPTab(event,'pt-malware')">&#128027; Malware Analysis</button>
+                <button class="ptab-btn" onclick="showPTab(event,'pt-web')">&#127760; Web Projects</button>
+              </div>
 
-                    <!-- Portfolio Grid -->
-                    <div class="portfolio-grid three-columns">
-					<figure class="item lbimage" data-groups='["category_all", "category_organization"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/interfencelogo.png" alt="interfencedeck.com" title="" />
-                          <a class="lightbox" title="Interfencedeck.com" href="img/portfolio/interfence.png"></a>						 
-                        </div>
+              <!-- Incident Reports -->
+              <div id="pt-incidents" class="ptab-panel active">
+                <div class="report-grid">
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128196;</div>
+                    <span class="rcard-tag">Incident Report</span>
+                    <div class="rcard-title">Kuvendi IR – Incident Response Report (TLP:CLEAR)</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2026</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2026/04/Kuvendi_IR_TLP_Clear_ENG.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128196;</div>
+                    <span class="rcard-tag">Incident Report</span>
+                    <div class="rcard-title">DDoS Attacks in Albania – NoName057(16) Group</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/DDoS-Attacks-in-Albania-NoName057-Group.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128196;</div>
+                    <span class="rcard-tag">Incident Report</span>
+                    <div class="rcard-title">Cyber Attack File Analysis – National Infrastructure</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/File-analysis-of-cyber-attacks.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128196;</div>
+                    <span class="rcard-tag">Incident Report</span>
+                    <div class="rcard-title">Homeland Justice Attack – Albanian Infrastructure Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/Analysis-of-Homeland-Justice-Attack-Files-That-Impacted-Infrastructure-in-R.Alb_.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128196;</div>
+                    <span class="rcard-tag">Incident Report</span>
+                    <div class="rcard-title">Profile of Russian Hacker Groups</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Dec 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/12/Profile-of-Russian-Hacker-Groups.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                </div>
+              </div>
 
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Interfencedeck</h4>
-                        <span class="category">interfencedeck.com</span>
-                      </figure>
-					 <figure class="item lbimage" data-groups='["category_all", "category_organization"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/smartroofing.png" alt="smartroofingandchimney.com" title="" />
-                          <a class="lightbox" title="Smartroofingandchimney.com" href="img/portfolio/smartroofingandchimney.png"></a>						 
-                        </div>
+              <!-- Prevented Incidents -->
+              <div id="pt-prevented" class="ptab-panel">
+                <div class="report-grid">
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">Fake CAPTCHA – Malicious Campaign Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Feb 2026</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2026/02/Fake-captcha.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">AgentTesla VBE Trojan – Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Nov 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/11/AgentTesla-VBE-Trojan-Analysis-1.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">Hacker Groups Impacting the Region</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/Hacker-Groups-impacting-the-Region.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">Technical Analysis – REMCOS RAT Malicious File</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/Technical-analysis-for-REMCOS-RAT-malicious-file.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">Spear-Phishing via ScreenConnect Windows Malware</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/Spear-Phishing_Malware-analysis-kurs-trajnimi.zip-ScreenConnectWindows.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128737;</div>
+                    <span class="rcard-tag">Prevented Incident</span>
+                    <div class="rcard-title">Iranian Hacker Groups Profiles v1.0</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/04/Iranian-Hacker-Groups-Profiles-v1.0_ENG.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                </div>
+              </div>
 
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Smart Roofing & Chimney</h4>
-                        <span class="category">smartroofingandchimney.com</span>
-                      </figure>
-					 <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/Logo-Memory-Craft-02.png" alt="memorycraft.al" title="" />
-                          <a class="lightbox" title="Memorycraft.al" href="img/portfolio/memrycraft.al.png"></a>						 
-                        </div>
+              <!-- Malware Analysis -->
+              <div id="pt-malware" class="ptab-panel">
+                <div class="report-grid">
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Chrome Browser Extension – Chat AI Stealer Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">2026</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2026/01/Technical-analysis-Chrome-Browser-Extension-chat-AI-stealer-EN.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Invoice0014436 – Malicious File Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">2026</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2026/03/Technical-analysis-Invoice0014436-EN.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">RaLord 0xb – Malicious File Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">2026</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2026/01/Technical-Analysis-of-Malicious-File-RaLord-0xb-1.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Minicraft APK – Android Malicious File Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Dec 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/12/Technical-Analysis-of-a-Malicious-File-Minicraft_.apk_.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Copyright Violation Document – Malicious File Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Oct 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/10/Technical-Analysis-of-the-Malicious-File-Dokumenti-permban-permbajtje-qe-shkel-te-drejtat-e-autorit.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Online Seminar – Malware Analysis & Reverse Engineering</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Sep 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/09/Malware-analysis-and-reverse-engineering-of-Online-Seminar.FM_.gov_.om_.doc.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Phishing via Telegram – Campaign Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Aug 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/08/Phishing-Telegram-v4-2.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Illegitimate Smishing Domains Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jul 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/07/Analysis-of-illegitimate-Smishing-domains-ok.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Lumma Stealer – Technical Analysis (English)</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jul 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/07/Lumma-Stealer-english.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Display10 – Technical Malware Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jul 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/07/Technical-Analysis-of-the-Malicious-File-Display10.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Malicious File – Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">May 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/05/Technical-analysis-for-the-malicious-file.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">RemcosRAT – Spear-Phishing Attempt Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Apr 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/04/Technical-analysis-for-the-Remcos-Rat-malicious-file-Spear-Phishing-Attempt.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Hidden in the Stars – CVE-2017-11882 Exploit Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Mar 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/03/HIDDEN-IN-THE-STARS-CVE-2017-11882-EN.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Remittance Advice – Malicious File Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jan 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/01/Analysis-for-the-Remittance-Advice-file.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">LockBit 4.0 – Ransomware Technical Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jan 2025</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2025/01/Lockbit-4.0-en-2.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">GootLoader – Technical Malware Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Dec 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/12/Technical-Analysis-of-the-Malicious-File-Gootloader.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">GIBANJ Shipment List – Malicious File Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Sep 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/09/Technical-analysis-for-the-file-GIBANJ-SHIPMENT-LIST-1.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">CrowdStrike Phishing Campaign Analysis</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Sep 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/09/CrowdStrike-Phishing-Campaign-Analysis.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Phishing Campaign by MuddyWater (Iranian APT)</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jul 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/07/Phishing-campaign-by-Muddy-Water-1.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Email Phishing Campaign – Registration Confirmation</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jul 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/07/Email-Phishing-Campaign_Konfirmimi-i-regjistrimit-te-marre-1.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">Redline Stealer – Technical Malware Analysis v1.0</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">Jun 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/06/Redline-Malware-Technical-Analysis-_v1.0.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">GuLoader – Technical Malware Analysis v1.0</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">May 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/05/Guloader-Malware-Technical-analysis-_v1.0.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                  <div class="rcard">
+                    <div class="rcard-icon">&#128027;</div>
+                    <span class="rcard-tag">Malware Analysis</span>
+                    <div class="rcard-title">AgentTesla – Technical Malware Analysis v1.0</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:-4px;">May 2024</div>
+                    <a class="rcard-link" href="https://aksk.gov.al/wp-content/uploads/2024/05/AgentTesla-Malware-Technical-Analysis-_v1.0.pdf" target="_blank" rel="noopener">Read PDF &#8599;</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Web Projects -->
+              <div id="pt-web" class="ptab-panel">
 
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Memory Craft</h4>
-                        <span class="category">memorycraft.al</span>
-                      </figure>
-                      <figure class="item lbimage" data-groups='["category_all", "category_automobile"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/duamakine.jpg" alt="Duamakine.com" title="" />
-                          <a class="lightbox" title="Duamakine.com" href="img/portfolio/screencapture-duamakine.png"></a>						 
-                        </div>
+                <!-- Web Lightbox Modal -->
+                <div id="web-lightbox" onclick="closeWebLightbox()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:99999;cursor:pointer;display:none;align-items:center;justify-content:center;flex-direction:column;">
+                  <div style="position:relative;max-width:90%;max-height:85vh;">
+                    <img id="web-lightbox-img" src="" alt="" style="max-width:100%;max-height:80vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.8);">
+                    <div style="text-align:center;margin-top:14px;">
+                      <div id="web-lightbox-title" style="color:#fff;font-size:16px;font-weight:600;"></div>
+                      <div id="web-lightbox-url" style="color:rgba(255,255,255,0.5);font-size:13px;margin-top:4px;"></div>
+                    </div>
+                    <div style="position:absolute;top:-14px;right:-14px;width:32px;height:32px;background:#4a9eda;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700;cursor:pointer;" onclick="closeWebLightbox()">&#215;</div>
+                  </div>
+                </div>
 
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Dua Makine</h4>
-                        <span class="category">duamakine.com</span>
-                      </figure>
-					  <figure class="item lbimage" data-groups='["category_all", "category_laboratory"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/biocare3.jpg" alt="biocare" title="" />
-                          <a class="lightbox" title="biocare.al" href="img/portfolio/biocare2.png"></a>						 
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Bio Care Laboratory</h4>
-                        <span class="category">biocare.al</span>
-                      </figure>
-                      <figure class="item lbimage" data-groups='["category_all", "category_branding" ]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/starline.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="starline.al" href="img/portfolio/starline2.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Starline Official</h4>
-                        <span class="category">starline.al</span>
-                      </figure>
-		      <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/blagflowers.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="blagflowers.com" href="img/portfolio/blagflowers2.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Blag Flowers</h4>
-                        <span class="category">blagflowers.com</span>
-                      </figure> 
-					  <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/desa3.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="desa.al" href="img/portfolio/desa2.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Desa & Co Tailoring for Clothing Production</h4>
-                        <span class="category">desa.al</span>
-                      </figure> 
-					   <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/artmade.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="artmadeofficial.com" href="img/portfolio/artmade2.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Artmade official</h4>
-                        <span class="category">artmadeofficial.com</span>
-                      </figure>
-					   <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/deluxewatch.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="deluxewatch.shop" href="img/portfolio/deluxe.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Deluxe Watch</h4>
-                        <span class="category">deluxewatch.shop</span>
-                      </figure>
-                        <figure class="item lbimage" data-groups='["category_all", "category_organization"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/aqs-logo-1.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="aqscert.org" href="img/portfolio/aqscert.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">AQSCERT Certification & Inspectation Body</h4>
-                        <span class="category">aqscert.org</span>
-                      </figure>
-                       
-						<figure class="item lbimage" data-groups='["category_all", "category_architecture"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/focus.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="focusarchitecture.al" href="img/portfolio/focus2.png"></a>
-                        </div>
-					
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Focus Architecture</h4>
-                        <span class="category">focusarchitecture.al</span>
-                      </figure>
-                      <figure class="item lbimage" data-groups='["category_all", "category_organization"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/iktd.jpg" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="iktd.org" href="img/portfolio/iktd2.png"></a>
-                        </div>
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Instituti i Komunikimeve & Teknologjive Digjitale (IKTD)</h4>
-                        <span class="category">iktd.org</span>
-                      </figure>
-					  
-					    <figure class="item lbimage" data-groups='["category_all", "category_ecommerce"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/movimento.png" alt="Mockup Design 1" title="" />
-                          <a class="lightbox" title="movimento.al" href="img/portfolio/movimento2.png"></a>
-                        </div>
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Movimento Shoes</h4>
-                        <span class="category">movimento.al</span>
-                      </figure>
-                      <figure class="item lbimage" data-groups='["category_all", "category_automobile"]'>
-                        <div class="portfolio-item-img">
-                          <img src="img/portfolio/heyyytaxi.png" alt="Mockup Design 1" title="" />
-                          
-                        </div>
-						
-
-                        <i class="far fa-image"></i>
-                        <h4 class="name">Heyyytaxi</h4>
-                        <span class="category">heyyytaxi.al</span>
-                      </figure>
+                <div class="portfolio-blog-grid">
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/interfence.png','Interfencedeck','interfencedeck.com')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/interfencelogo.png" alt="Interfencedeck">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Organization</span>
+                      <div class="portfolio-card-title">Interfencedeck</div>
+                      <div class="portfolio-card-url">interfencedeck.com &#128247;</div>
                     </div>
                   </div>
-                  <!-- End of Portfolio Content -->
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/smartroofingandchimney.png','Smart Roofing &amp; Chimney','smartroofingandchimney.com')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/smartroofing.png" alt="Smart Roofing &amp; Chimney">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Organization</span>
+                      <div class="portfolio-card-title">Smart Roofing &amp; Chimney</div>
+                      <div class="portfolio-card-url">smartroofingandchimney.com &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/memrycraft.al.png','Memory Craft','memorycraft.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/Logo-Memory-Craft-02.png" alt="Memory Craft">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Memory Craft</div>
+                      <div class="portfolio-card-url">memorycraft.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/screencapture-duamakine.png','Dua Makine','duamakine.com')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/duamakine.jpg" alt="Dua Makine">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Automobile</span>
+                      <div class="portfolio-card-title">Dua Makine</div>
+                      <div class="portfolio-card-url">duamakine.com &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/biocare2.png','Bio Care Laboratory','biocare.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/biocare3.jpg" alt="Bio Care Laboratory">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Laboratory</span>
+                      <div class="portfolio-card-title">Bio Care Laboratory</div>
+                      <div class="portfolio-card-url">biocare.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/starline2.png','Starline Official','starline.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/starline.png" alt="Starline Official">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Branding</span>
+                      <div class="portfolio-card-title">Starline Official</div>
+                      <div class="portfolio-card-url">starline.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/blagflowers2.png','Blag Flowers','blagflowers.com')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/blagflowers.png" alt="Blag Flowers">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Blag Flowers</div>
+                      <div class="portfolio-card-url">blagflowers.com &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/desa2.png','Desa &amp; Co Tailoring','desa.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/desa3.png" alt="Desa &amp; Co Tailoring">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Desa &amp; Co Tailoring</div>
+                      <div class="portfolio-card-url">desa.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/artmade2.png','Artmade Official','artmadeofficial.com')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/artmade.png" alt="Artmade Official">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Artmade Official</div>
+                      <div class="portfolio-card-url">artmadeofficial.com &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/deluxe.png','Deluxe Watch','deluxewatch.shop')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/deluxewatch.png" alt="Deluxe Watch">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Deluxe Watch</div>
+                      <div class="portfolio-card-url">deluxewatch.shop &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/aqscert.png','AQSCERT Certification Body','aqscert.org')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/aqs-logo-1.png" alt="AQSCERT Certification Body">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Organization</span>
+                      <div class="portfolio-card-title">AQSCERT Certification Body</div>
+                      <div class="portfolio-card-url">aqscert.org &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/focus2.png','Focus Architecture','focusarchitecture.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/focus.png" alt="Focus Architecture">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Architecture</span>
+                      <div class="portfolio-card-title">Focus Architecture</div>
+                      <div class="portfolio-card-url">focusarchitecture.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/iktd2.png','IKTD – Instituti i Komunikimeve','iktd.org')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/iktd.jpg" alt="IKTD – Instituti i Komunikimeve">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Organization</span>
+                      <div class="portfolio-card-title">IKTD – Instituti i Komunikimeve</div>
+                      <div class="portfolio-card-url">iktd.org &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/movimento2.png','Movimento Shoes','movimento.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/movimento.png" alt="Movimento Shoes">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">E-Commerce</span>
+                      <div class="portfolio-card-title">Movimento Shoes</div>
+                      <div class="portfolio-card-url">movimento.al &#128247;</div>
+                    </div>
+                  </div>
+                  <div class="portfolio-card" onclick="openWebLightbox('img/portfolio/heyyytaxi2.png','Heyyytaxi','heyyytaxi.al')" style="cursor:pointer;">
+                    <img class="portfolio-card-img" src="img/portfolio/heyyytaxi.png" alt="Heyyytaxi">
+                    <div class="portfolio-card-body">
+                      <span class="portfolio-card-tag">Automobile</span>
+                      <div class="portfolio-card-title">Heyyytaxi</div>
+                      <div class="portfolio-card-url">heyyytaxi.al &#128247;</div>
+                    </div>
+                  </div>
                 </div>
-              
+              </div>
+
             </div>
           </section>
           <!-- End of Portfolio Subpage -->
 
-          
-
-
-          <!-- Contact Subpage -->
+                    <!-- Contact Subpage -->
           <section data-id="contact" class="animated-section">
             <div class="section-content">
               <div class="page-title">
@@ -1025,7 +1298,7 @@ _						1st Place – Global Cyber Drill at GISEC 2024
 
                   <div class="lm-info-block gray-default">
                     <i class="lnr lnr-phone-handset"></i>
-                    <h4> +355 69 6838 553</h4>
+                    <h4>+355 69 6838 553</h4>
                     <span class="lm-info-block-value"></span>
                     <span class="lm-info-block-text"></span>
                   </div>
@@ -1040,83 +1313,152 @@ _						1st Place – Global Cyber Drill at GISEC 2024
                 <!-- End of Contact Info -->
 
                 <!-- Contact Form -->
-                <div class="col-xs-1 col-sm-8">
+                <div class="col-xs-12 col-sm-8">
                   <div class="block-title">
                     <h3 style="padding-bottom: 27px; font-size: 27px;">How Can I <span>Help You?</span></h3>
                   </div>
 
-                  <form id="contact_form" class="contact-form" action="contact_form/contact_form.php" method="POST">
+                  <div id="contact-success" style="display:none; padding:15px; background:#27ae60; color:#fff; border-radius:6px; margin-bottom:20px;">
+                    ✓ Your email client has opened. Please send the pre-filled email to complete your message.
+                  </div>
+                  <div id="contact-error" style="display:none; padding:15px; background:#e74c3c; color:#fff; border-radius:6px; margin-bottom:20px;">
+                    ✗ There was an error sending your message. Please try again or email directly: adrianolleshi1@gmail.com
+                  </div>
 
-                    <div class="messages"></div>
-
-                    <div class="controls two-columns">
-                      <div class="fields clearfix">
-                        <div class="left-column">
-                          <div class="form-group form-group-with-icon">
-                            <input id="form_name" type="text" name="name" class="form-control" placeholder=""
-                              required="required" data-error="Name is required.">
-                            <label>Full Name</label>
-                            <div class="form-control-border"></div>
-                          </div>
-
-                          <div class="form-group form-group-with-icon">
-                            <input id="form_email" type="email" name="email" class="form-control" placeholder=""
-                              required="required" data-error="Valid email is required.">
-                            <label>Email Address</label>
-                            <div class="form-control-border"></div>
-                          </div>
-
-                          <div class="form-group form-group-with-icon">
-                            <input id="form_subject" type="text" name="subject" class="form-control" placeholder=""
-                              required="required" data-error="Subject is required.">
-                            <label>Subject</label>
-                            <div class="form-control-border"></div>
-                          </div>
+                  <div class="controls two-columns">
+                    <div class="fields clearfix">
+                      <div class="left-column">
+                        <div class="form-group form-group-with-icon">
+                          <input id="form_name" type="text" class="form-control" placeholder="">
+                          <label>Full Name</label>
+                          <div class="form-control-border"></div>
                         </div>
-                        <div class="right-column">
-                          <div class="form-group form-group-with-icon">
-                            <textarea id="form_message" name="message" class="form-control" placeholder="" rows="10"
-                              required="required" data-error="Please, leave me a message."></textarea>
-                            <label>Message</label>
-                            <div class="form-control-border"></div>
-                          </div>
+                        <div class="form-group form-group-with-icon">
+                          <input id="form_email" type="email" class="form-control" placeholder="">
+                          <label>Email Address</label>
+                          <div class="form-control-border"></div>
+                        </div>
+                        <div class="form-group form-group-with-icon">
+                          <input id="form_subject" type="text" class="form-control" placeholder="">
+                          <label>Subject</label>
+                          <div class="form-control-border"></div>
                         </div>
                       </div>
-
-                      <input type="submit" class="button btn-send" value="Send message" style="margin-bottom: 175px" action="https://formsubmit.co/adrianolleshi1@gmail.com" method="POST">
-			   
+                      <div class="right-column">
+                        <div class="form-group form-group-with-icon">
+                          <textarea id="form_message" class="form-control" placeholder="" rows="10"></textarea>
+                          <label>Message</label>
+                          <div class="form-control-border"></div>
+                        </div>
+                      </div>
                     </div>
-                  </form>
+
+                    <button id="send-btn" class="button btn-send" style="margin-bottom: 40px; cursor:pointer; border:none;">Send message</button>
+                  </div>
                 </div>
                 <!-- End of Contact Form -->
               </div>
-
-             </div>
+            </div>
           </section>
           <!-- End of Contact Subpage -->
+
         </div>
       </div>
-
     </div>
   </div>
+  <!-- Hidden #map div required by main.js (prevents grey glitch box) -->
+  <div id="map" style="display:none;width:0;height:0;visibility:hidden;position:absolute;"></div>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
   <script src="js/animating.js"></script>
-
   <script src="js/imagesloaded.pkgd.min.js"></script>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
-
   <script src='js/perfect-scrollbar.min.js'></script>
   <script src='js/jquery.shuffle.min.js'></script>
   <script src='js/masonry.pkgd.min.js'></script>
   <script src='js/owl.carousel.min.js'></script>
   <script src="js/jquery.magnific-popup.min.js"></script>
-
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHOLnHmHfCcfsrA2hxsPowymeBLVaRyD4"></script>
   <script src="js/jquery.googlemap.js"></script>
   <script src="js/validator.js"></script>
   <script src="js/main.js"></script>
-</body>
 
+  <script>
+    // Contact form via FormSubmit (no PHP needed, works on GitHub Pages)
+    // Contact form via Web3Forms - works on GitHub Pages, no server needed
+    document.getElementById('send-btn').addEventListener('click', function() {
+      var name    = document.getElementById('form_name').value.trim();
+      var email   = document.getElementById('form_email').value.trim();
+      var subject = document.getElementById('form_subject').value.trim();
+      var message = document.getElementById('form_message').value.trim();
+
+      if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      var btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      document.getElementById('contact-success').style.display = 'none';
+      document.getElementById('contact-error').style.display = 'none';
+
+      // Open mailto - guaranteed to work on GitHub Pages
+      var body = 'From: ' + name + ' <' + email + '>\n\n' + message;
+      window.location.href = 'mailto:adrianolleshi1@gmail.com'
+        + '?subject=' + encodeURIComponent('[Website] ' + subject)
+        + '&body=' + encodeURIComponent(body);
+
+      setTimeout(function() {
+        document.getElementById('contact-success').style.display = 'block';
+        document.getElementById('form_name').value = '';
+        document.getElementById('form_email').value = '';
+        document.getElementById('form_subject').value = '';
+        document.getElementById('form_message').value = '';
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+      }, 500);
+    });
+  </script>
+
+
+  <script>
+    // Web Projects Lightbox
+    function openWebLightbox(img, title, url) {
+      var lb = document.getElementById('web-lightbox');
+      document.getElementById('web-lightbox-img').src = img;
+      document.getElementById('web-lightbox-title').textContent = title;
+      document.getElementById('web-lightbox-url').textContent = url;
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeWebLightbox() {
+      document.getElementById('web-lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Certificate Lightbox
+    function openCertLightbox(img, title) {
+      document.getElementById('cert-lightbox-img').src = img;
+      document.getElementById('cert-lightbox-title').textContent = title;
+      document.getElementById('cert-lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCertLightbox() {
+      document.getElementById('cert-lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { closeWebLightbox(); closeCertLightbox(); }
+    });
+
+    function showPTab(e, id) {
+      document.querySelectorAll('.ptab-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelectorAll('.ptab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.getElementById(id).classList.add('active');
+      e.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
 </html>
